@@ -1,0 +1,40 @@
+{
+    "name": "faridibin/laraflags",
+    "description": "Package for creating and managing feature flags in your laravel application",
+    "type": "library",
+    "license": "MIT",
+    "autoload": {
+        "psr-4": {
+            "Faridibin\\Laraflags\\": "src/",
+            "Faridibin\\Laraflags\\Database\\Factories\\": "database/factories"
+        }
+    },
+    "autoload-dev": {
+        "psr-4": {
+            "Faridibin\\Laraflags\\Tests\\": "tests/"
+        }
+    },
+    "authors": [
+        {
+            "name": "Farid Adam",
+            "email": "faridibin@gmail.com"
+        }
+    ],
+    "extra": {
+        "laravel": {
+            "providers": [
+                "Faridibin\\Laraflags\\LaraflagsServiceProvider"
+            ]
+        }
+    },
+    "require-dev": {
+        "orchestra/testbench": "^7.0",
+        "nunomaduro/collision": "^6.2",
+        "laravel/legacy-factories": "^1.3"
+    },
+    "scripts": {
+        "post-autoload-dump": [
+            "@php vendor/bin/testbench package:discover --ansi"
+        ]
+    }
+}
