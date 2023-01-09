@@ -3,10 +3,43 @@
 return [
     /*
     |--------------------------------------------------------------------------
-    | Middleware for Feature Flags
+    | Laraflags Route Configuration
     |--------------------------------------------------------------------------
     */
-    'middleware' => [],
+    'route' => [
+        /*
+        |--------------------------------------------------------------------------
+        | Laraflags Route Prefix
+        |--------------------------------------------------------------------------
+        |
+        | This option defines the route prefix for Laraflags.
+        | Default: 'laraflags'
+        |
+        */
+        'prefix' => 'laraflags',
+
+        /*
+        |--------------------------------------------------------------------------
+        | Laraflags Route Namespace
+        |--------------------------------------------------------------------------
+        |
+        | This option defines the route namespace for Laraflags.
+        | Default: 'Faridibin\Laraflags\Http\Controllers'
+        |
+        */
+        'namespace' => 'Faridibin\Laraflags\Http\Controllers',
+
+        /*
+        |--------------------------------------------------------------------------
+        | Laraflags Route Middleware
+        |--------------------------------------------------------------------------
+        |
+        | This option defines the middleware for Laraflags.
+        | Default: ['web']
+        |
+        */
+        'middleware' => ['web']
+    ],
 
     /*
     |--------------------------------------------------------------------------
