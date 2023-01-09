@@ -24,7 +24,10 @@
         "laravel": {
             "providers": [
                 "Faridibin\\Laraflags\\LaraflagsServiceProvider"
-            ]
+            ],
+            "aliases": {
+                "Laraflags": "Faridibin\\Laraflags\\Facades\\Laraflags"
+            }
         }
     },
     "require-dev": {
