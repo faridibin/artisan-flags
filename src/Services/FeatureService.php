@@ -1,0 +1,68 @@
+<?php
+
+namespace Faridibin\Laraflags\Services;
+
+use Faridibin\Laraflags\Repositories\FeaturesRepository;
+
+class FeatureService
+{
+    /**
+     * The feature repository instance.
+     *
+     * @var \Faridibin\Laraflags\Repositories\FeaturesRepository
+     */
+    protected $repository;
+
+    /**
+     * Create a new repository instance.
+     */
+    public function __construct()
+    {
+        $this->repository = new FeaturesRepository();
+    }
+
+    /**
+     * Gets a feature by id.
+     *
+     * @param int $id
+     * @return \Faridibin\Laraflags\Models\Features
+     */
+    public function getById(int $id)
+    {
+        return $this->repository->getById($id);
+    }
+
+    /**
+     * Creates a new feature.
+     *
+     * @param array<string, mixed> $data
+     * @return \Faridibin\Laraflags\Models\Features
+     */
+    public function create(array $data)
+    {
+        return $this->repository->create($data);
+    }
+
+    /**
+     * Updates a feature.
+     *
+     * @param int $id
+     * @param array<string, mixed> $data
+     * @return \Faridibin\Laraflags\Models\Features
+     */
+    public function update(int $id, array $data)
+    {
+        return $this->repository->update($id, $data);
+    }
+
+    /**
+     * Deletes a feature.
+     *
+     * @param int $id
+     * @return \Faridibin\Laraflags\Models\Features
+     */
+    public function delete(int $id)
+    {
+        return $this->repository->delete($id);
+    }
+}
