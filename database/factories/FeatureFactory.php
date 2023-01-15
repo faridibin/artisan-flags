@@ -30,4 +30,18 @@ class FeatureFactory extends Factory
             'expires_at' => null,
         ];
     }
+
+    /**
+     * Indicate that the feature is in.
+     *
+     * @return \Illuminate\Database\Eloquent\Factories\Factory
+     */
+    public function inactive()
+    {
+        return $this->state(function (array $attributes) {
+            return [
+                'active' => false,
+            ];
+        });
+    }
 }
