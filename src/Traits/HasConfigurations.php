@@ -3,6 +3,7 @@
 namespace Faridibin\Laraflags\Traits;
 
 use Illuminate\Support\Facades\File;
+use Illuminate\Support\Facades\Schema;
 
 trait HasConfigurations
 {
@@ -13,7 +14,17 @@ trait HasConfigurations
      */
     public function installed(): bool
     {
-        return $this->configExists() && $this->viewsExist();
+        $installed = Schema::hasTable('features')
+            && Schema::hasTable('feature_groups')
+            && Schema::hasTable('feature_feature_group');
+
+        if ($this->tenancyEnabled()) {
+            $installed = $installed
+                && Schema::hasTable('feature_tenant')
+                && Schema::hasTable('feature_group_tenant');
+        }
+
+        return $installed;
     }
 
     /**
