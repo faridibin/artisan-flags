@@ -1,6 +1,6 @@
 <?php
 
-namespace Faridibin\LaraFlags\Console\Commands\Traits;
+namespace Faridibin\LaraFlags\Console\Traits;
 
 use Faridibin\LaraFlags\Facades\LaraFlags;
 
