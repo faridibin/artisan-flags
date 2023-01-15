@@ -15,6 +15,8 @@ class InstallLaraflagsTest extends TestCase
     /** @test */
     public function the_install_command_copies_the_configuration_and_views()
     {
+        Artisan::call('migrate:reset');
+
         // make sure we're starting from a clean state
         if (Laraflags::configExists()) {
             unlink(config_path('laraflags.php'));
