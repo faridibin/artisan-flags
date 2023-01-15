@@ -36,32 +36,53 @@ trait HasFlagFeatures
         return $this->active;
     }
 
-    //     /**
-    //      * The feature groups that feature belongs to.
-    //      */
-    //     public function groups(): BelongsToMany
-    //     {
-    //         return $this->belongsToMany(FeatureGroups::class, 'feature_feature_group', 'feature_id', 'feature_group_id')->withTimestamps();
-    //     }
+    /**
+     * Extend the model expiration date.
+     *
+     * @return void
+     */
+    public function extend(string $date)
+    {
+        $this->expires_at = $date;
+        $this->save();
+    }
 
-    //     /**
-    //      * The tenants that feature belongs to.
-    //      */
-    //     public function tenants(): BelongsToMany
-    //     {
-    //         return $this->belongsToMany(config('feature-flags.tenancy.model'), 'feature_tenant', 'feature_id', 'tenant_id')->withTimestamps();
-    //     }
+    /**
+     * Determine if the model has expired.
+     *
+     * @return bool
+     */
+    public function expired(): bool
+    {
+        return $this->expires_at && $this->expires_at->isPast();
+    }
 
-    //     /**
-    //      * Determine if the feature group has a given tenant.
-    //      *
-    //      * @param string $tenant
-    //      * @return bool
-    //      */
-    //     public function hasTenant($tenant): bool
-    //     {
-    //         return $this->tenants->contains('name', $tenant);
-    //     }
+    // /**
+    //  * The feature groups that feature belongs to.
+    //  */
+    // public function groups(): BelongsToMany
+    // {
+    //     return $this->belongsToMany(FeatureGroups::class, 'feature_feature_group', 'feature_id', 'feature_group_id')->withTimestamps();
+    // }
+
+    // /**
+    //  * The tenants that feature belongs to.
+    //  */
+    // public function tenants(): BelongsToMany
+    // {
+    //     return $this->belongsToMany(config('feature-flags.tenancy.model'), 'feature_tenant', 'feature_id', 'tenant_id')->withTimestamps();
+    // }
+
+    /**
+     * Determine if the model has a given tenant.
+     *
+     * @param string $tenant
+     * @return bool
+     */
+    public function hasTenant($tenant): bool
+    {
+        return $this->tenants->contains('name', $tenant);
+    }
 
     //     /**
     //      * Attach a tenant to the feature.
@@ -116,17 +137,7 @@ trait HasFlagFeatures
     //         return $this->expires_at && $this->expires_at->isPast();
     //     }
 
-    //     /**
-    //      * Extend the feature expiration date.
-    //      *
-    //      * @return void
-    //      */
-    //     public function extend(string $date)
-    //     {
-    //         $this->expires_at = $date;
 
-    //         $this->save();
-    //     }
 
 
     // /**
@@ -213,15 +224,7 @@ trait HasFlagFeatures
 
 
 
-    // /**
-    //  * Determine if the feature group is expired.
-    //  *
-    //  * @return bool
-    //  */
-    // public function isExpired(): bool
-    // {
-    //     return $this->expires_at && $this->expires_at->isPast();
-    // }
+
 
     // /**
     //  * Extend the expiration date of the feature group.
