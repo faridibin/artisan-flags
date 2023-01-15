@@ -49,13 +49,13 @@ return [
     'tenancy' => [
         /*
         |--------------------------------------------------------------------------
-        | Enable Tenancy for Feature Flags
+        | Enable Tenancy for Laraflags
         |--------------------------------------------------------------------------
         |
-        | This option enables the tenancy for feature flags.
+        | This option enables the tenancy for laraflags.
         | If this is set to true, you can set a tenant_id for each
-        | feature and feature-group. When the tenant_id is set,
-        | the feature or feature-group will be only available for the tenant.
+        | feature and feature group. When the tenant_id is set,
+        | the feature or feature group will be only available for the tenant.
         |
         */
         'enabled' => false,
@@ -84,26 +84,26 @@ return [
 
     /*
     |--------------------------------------------------------------------------
-    | Expiration of Features and feature-groups
+    | Expiration of Features and feature groups
     |--------------------------------------------------------------------------
     */
     'expiration' => [
         /*
         |--------------------------------------------------------------------------
-        | Enable Expiration for Features and feature-groups
+        | Enable Expiration for Features and feature groups
         |--------------------------------------------------------------------------
         |
-        | This option enables the expiration of features and feature-groups.
+        | This option enables the expiration of features and feature groups.
         | If this is set to true, you can set an expiration date for each
-        | feature and feature-group. When the expiration date is reached,
-        | the feature or feature-group will be deactivated.
+        | feature and feature group. When the expiration date is reached,
+        | the feature or feature group will be deactivated.
         |
         */
         'enabled' => false,
 
         /*
         |--------------------------------------------------------------------------
-        | Environment for Expiration of Features and feature-groups
+        | Environment for Expiration of Features and feature groups
         |--------------------------------------------------------------------------
         |
         */
