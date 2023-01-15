@@ -34,6 +34,26 @@ class LaraflagsServiceProvider extends ServiceProvider
         $this->commands([
             \Faridibin\Laraflags\Console\InstallCommand::class,
             \Faridibin\Laraflags\Console\PublishCommand::class,
+
+            // Feature commands
+            \Faridibin\Laraflags\Console\Feature\CreateFeature::class,
+            \Faridibin\Laraflags\Console\Feature\DeleteFeature::class,
+            \Faridibin\Laraflags\Console\Feature\AttachToGroup::class,
+            \Faridibin\Laraflags\Console\Feature\DetachFromGroup::class,
+            \Faridibin\Laraflags\Console\Feature\ActivateFeature::class,
+            \Faridibin\Laraflags\Console\Feature\DeactivateFeature::class,
+            // \Faridibin\Laraflags\Console\Feature\AttachFeatureToTenant::class,
+            // \Faridibin\Laraflags\Console\Feature\DetachFeatureFromTenant::class,
+
+            // Feature group commands
+            // \Faridibin\Laraflags\Console\FeatureGroup\CreateFeatureGroup::class,
+            // \Faridibin\Laraflags\Console\FeatureGroup\DeleteFeatureGroup::class,
+            // \Faridibin\Laraflags\Console\FeatureGroup\AttachFeature::class,
+            // \Faridibin\Laraflags\Console\FeatureGroup\DetachFeature::class,
+            // \Faridibin\Laraflags\Console\FeatureGroup\ActivateFeatureGroup::class,
+            // \Faridibin\Laraflags\Console\FeatureGroup\DeactivateFeatureGroup::class,
+            // \Faridibin\Laraflags\Console\FeatureGroup\AttachFeatureGroupToTenant::class,
+            // \Faridibin\Laraflags\Console\FeatureGroup\DetachFeatureGroupFromTenant::class,
         ]);
     }
 
