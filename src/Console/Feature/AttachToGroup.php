@@ -2,16 +2,17 @@
 
 namespace Faridibin\Laraflags\Console\Feature;
 
+use Faridibin\Laraflags\Console\Traits\CreatesFeatureGroup;
+use Faridibin\Laraflags\Console\Traits\Runner;
 use Faridibin\Laraflags\Facades\Laraflags;
 use Faridibin\Laraflags\Models\Features;
 use Faridibin\Laraflags\Models\FeatureGroups;
-use Faridibin\Laraflags\Console\Traits\CreatesGroup;
 use Illuminate\Console\Command;
 use Illuminate\Support\Collection;
 
 class AttachToGroup extends Command
 {
-    use CreatesGroup;
+    use CreatesFeatureGroup, Runner;
 
     /**
      * The name and signature of the console command.
@@ -34,6 +35,8 @@ class AttachToGroup extends Command
      */
     public function handle()
     {
+        $this->checkInstallation();
+
         $feature = $this->handleGetFeaturePrompt();
         $groups = $this->handleGetFeatureGroupPrompt();
 
@@ -90,7 +93,7 @@ class AttachToGroup extends Command
             $name = null;
 
             while (!$name) {
-                $name = $this->ask('Please enter the name of the feature group to attach');
+                $name = $this->ask('Please enter the name of the feature group to attach to');
             }
 
             $groups->push($name);
@@ -104,7 +107,7 @@ class AttachToGroup extends Command
                 $creates = $this->choice("Do you want to create a feature group with this name [{$name}]?", ['no', 'yes']);
 
                 if ($creates === 'yes') {
-                    $group = $this->createGroup($name);
+                    $group = $this->createFeatureGroup($name);
                 }
             }
 

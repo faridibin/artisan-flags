@@ -16,13 +16,15 @@ class DeleteFeatureTest extends TestCase
     {
         Features::factory()->create(['name' => 'test-feature']);
 
-        $this->artisan('laraflags:delete-feature', ['feature' => 'test-feature'])
+        $this->artisan('laraflags:delete-feature', ['name' => 'test-feature'])
             ->expectsOutput('The feature [test-feature] was deleted!')
             ->assertExitCode(0);
 
         $this->assertDatabaseMissing('features', [
             'name' => 'test-feature',
         ]);
+
+        $this->assertFalse(Laraflags::feature('test-feature'));
     }
 
     /** @test */
@@ -38,6 +40,8 @@ class DeleteFeatureTest extends TestCase
         $this->assertDatabaseMissing('features', [
             'name' => 'test-feature',
         ]);
+
+        $this->assertFalse(Laraflags::feature('test-feature'));
     }
 
     /** @test */
@@ -45,7 +49,7 @@ class DeleteFeatureTest extends TestCase
     {
         Features::factory()->create(['name' => 'test-feature']);
 
-        $this->artisan('laraflags:delete-feature', ['feature' => 'test-feature-new'])
+        $this->artisan('laraflags:delete-feature', ['name' => 'test-feature-new'])
             ->expectsQuestion('Please enter the name of the feature', 'test-feature')
             ->expectsOutput('The feature [test-feature] was deleted!')
             ->assertExitCode(0);
@@ -53,5 +57,7 @@ class DeleteFeatureTest extends TestCase
         $this->assertDatabaseMissing('features', [
             'name' => 'test-feature',
         ]);
+
+        $this->assertFalse(Laraflags::feature('test-feature'));
     }
 }

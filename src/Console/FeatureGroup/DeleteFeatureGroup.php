@@ -1,12 +1,12 @@
 <?php
 
-namespace Faridibin\Laraflags\Console\Feature;
+namespace Faridibin\Laraflags\Console\FeatureGroup;
 
 use Faridibin\Laraflags\Console\Traits\Runner;
 use Faridibin\Laraflags\Facades\Laraflags;
 use Illuminate\Console\Command;
 
-class DeleteFeature extends Command
+class DeleteFeatureGroup extends Command
 {
     use Runner;
 
@@ -15,7 +15,7 @@ class DeleteFeature extends Command
      *
      * @var string
      */
-    protected $signature = 'laraflags:delete-feature {name?}';
+    protected $signature = 'laraflags:delete-feature-group {name?}';
 
     /**
      * The console command description.
@@ -36,21 +36,21 @@ class DeleteFeature extends Command
         $name = $this->argument('name');
 
         if (!$name) {
-            $name = $this->ask('Please enter the name of the feature');
+            $name = $this->ask('Please enter the name of the feature group');
         }
 
-        $feature = Laraflags::feature($name);
+        $group = Laraflags::group($name);
 
-        while (!$feature) {
-            $this->alert('The feature does not exist!');
-            $name = $this->ask('Please enter the name of the feature');
+        while (!$group) {
+            $this->alert('The feature group does not exist!');
+            $name = $this->ask('Please enter the name of the feature group');
 
-            $feature = Laraflags::feature($name);
+            $group = Laraflags::group($name);
         }
 
-        $feature->delete();
+        $group->delete();
 
-        $this->info("The feature [{$name}] was deleted!");
+        $this->info("The feature group [{$name}] was deleted!");
 
         return Command::SUCCESS;
     }

@@ -2,24 +2,25 @@
 
 namespace Faridibin\Laraflags\Console\Feature;
 
+use Faridibin\Laraflags\Console\Traits\CreatesFeature;
+use Faridibin\Laraflags\Console\Traits\CreatesFeatureGroup;
+use Faridibin\Laraflags\Console\Traits\Runner;
 use Faridibin\Laraflags\Facades\Laraflags;
 use Faridibin\Laraflags\Models\Features;
 use Faridibin\Laraflags\Models\FeatureGroups;
-use Faridibin\Laraflags\Console\Traits\CreatesFeature;
-use Faridibin\Laraflags\Console\Traits\CreatesGroup;
 use Illuminate\Console\Command;
 use Illuminate\Support\Collection;
 
 class CreateFeature extends Command
 {
-    use CreatesFeature, CreatesGroup;
+    use CreatesFeature, CreatesFeatureGroup, Runner;
 
     /**
      * The name and signature of the console command.
      *
      * @var string
      */
-    protected $signature = 'laraflags:new-feature {feature?} {--g|group=*}';
+    protected $signature = 'laraflags:create-feature {name?} {--g|group=*}';
 
     /**
      * The console command description.
@@ -35,6 +36,8 @@ class CreateFeature extends Command
      */
     public function handle()
     {
+        $this->checkInstallation();
+
         $feature = $this->handleFeatureCreationPrompt();
 
         if ($feature) {
@@ -65,7 +68,7 @@ class CreateFeature extends Command
      */
     private function handleFeatureCreationPrompt(): Features
     {
-        $name = $this->argument('feature');
+        $name = $this->argument('name');
 
         if (!$name) {
             $name = $this->ask('Please enter a name for the feature');
@@ -84,7 +87,7 @@ class CreateFeature extends Command
     }
 
     /**
-     * Prompts the user for a feature group name.
+     * Prompts the user for a feature-group name.
      *
      * @return \Illuminate\Support\Collection
      */
@@ -103,7 +106,7 @@ class CreateFeature extends Command
             $create = $this->choice("Do you want to create a new feature group with this name [{$name}]?", ['no', 'yes']);
 
             if ($create === 'yes') {
-                return $this->createGroup($name);
+                return $this->createFeatureGroup($name);
             }
 
             return $name;

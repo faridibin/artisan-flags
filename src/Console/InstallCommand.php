@@ -2,11 +2,13 @@
 
 namespace Faridibin\Laraflags\Console;
 
-use Faridibin\Laraflags\Facades\Laraflags;
+use Faridibin\Laraflags\Console\Traits\Runner;
 use Illuminate\Console\Command;
 
 class InstallCommand extends Command
 {
+    use Runner;
+
     /**
      * The name and signature of the console command.
      *
@@ -28,14 +30,7 @@ class InstallCommand extends Command
      */
     public function handle()
     {
-        if (LaraFlags::installed()) {
-            $this->info('Laraflags is already installed.');
-            $reinstall = $this->choice('Do you want to reinstall it?', ['yes', 'no'], 'no');
-
-            if ($reinstall === 'no') {
-                return Command::SUCCESS;
-            }
-        }
+        $this->checkInstallation(true);
 
         $this->info('Installing Laraflags...');
 

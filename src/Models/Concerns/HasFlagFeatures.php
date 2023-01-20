@@ -70,7 +70,7 @@ trait HasFlagFeatures
     //  */
     // public function tenants(): BelongsToMany
     // {
-    //     return $this->belongsToMany(config('feature-flags.tenancy.model'), 'feature_tenant', 'feature_id', 'tenant_id')->withTimestamps();
+    //     return $this->belongsToMany(config('laraflags.tenancy.model'), 'feature_tenant', 'feature_id', 'tenant_id')->withTimestamps();
     // }
 
     /**
@@ -81,7 +81,11 @@ trait HasFlagFeatures
      */
     public function hasTenant($tenant): bool
     {
-        return $this->tenants->contains('name', $tenant);
+        if (config('laraflags.tenancy.enabled')) {
+            return $this->tenants->contains('name', $tenant);
+        }
+
+        return false;
     }
 
     //     /**
@@ -153,7 +157,7 @@ trait HasFlagFeatures
     //  */
     // public function tenants(): BelongsToMany
     // {
-    //     return $this->belongsToMany(config('feature-flags.tenancy.model'), 'feature_group_tenant', 'feature_group_id', 'tenant_id')->withTimestamps();
+    //     return $this->belongsToMany(config('laraflags.tenancy.model'), 'feature_group_tenant', 'feature_group_id', 'tenant_id')->withTimestamps();
     // }
 
     // /**

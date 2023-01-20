@@ -2,6 +2,7 @@
 
 namespace Faridibin\Laraflags\Console\Feature;
 
+use Faridibin\Laraflags\Console\Traits\Runner;
 use Faridibin\Laraflags\Facades\Laraflags;
 use Faridibin\Laraflags\Models\Features;
 use Faridibin\Laraflags\Models\FeatureGroups;
@@ -10,6 +11,8 @@ use Illuminate\Support\Collection;
 
 class DetachFromGroup extends Command
 {
+    use Runner;
+
     /**
      * The name and signature of the console command.
      *
@@ -31,6 +34,8 @@ class DetachFromGroup extends Command
      */
     public function handle()
     {
+        $this->checkInstallation();
+
         $feature = $this->handleGetFeaturePrompt();
         $groups = $this->handleGetFeatureGroupPrompt();
 
@@ -43,7 +48,7 @@ class DetachFromGroup extends Command
                 } elseif ($group instanceof FeatureGroups) {
                     $feature->groups()->detach($group);
 
-                    $this->comment("The feature [{$feature->name}] was attached to feature group [{$group->name}]!");
+                    $this->comment("The feature [{$feature->name}] was detached from feature group [{$group->name}]!");
                 } else {
                     $this->info("The feature group option [{$group}] was skipped.");
                 }

@@ -1,8 +1,8 @@
 <?php
 
-namespace Faridibin\LaraFlags\Console\Traits;
+namespace Faridibin\Laraflags\Console\Traits;
 
-use Faridibin\LaraFlags\Models\Features;
+use Faridibin\Laraflags\Models\Features;
 use Faridibin\Laraflags\Services\FeatureService;
 
 trait CreatesFeature
@@ -10,7 +10,7 @@ trait CreatesFeature
     /**
      * Handle the feature creation.
      *
-     * @return \Faridibin\LaraFlags\Models\Features
+     * @return \Faridibin\Laraflags\Models\Features
      */
     protected function createFeature(string $name): Features
     {
@@ -23,7 +23,7 @@ trait CreatesFeature
         $description = $this->ask('Please enter a description for the feature');
         $isActive = $this->choice('Do you want to activate this feature?', ['no', 'yes'], 'yes');
 
-        if (config('feature-flags.expiration.enabled')) {
+        if (config('laraflags.expiration.enabled')) {
             $expiresAt = $this->ask('When do you want this feature to expire? (Number of Days)', 0);
         }
 

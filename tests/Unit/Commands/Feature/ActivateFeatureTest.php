@@ -16,7 +16,7 @@ class ActivateFeatureTest extends TestCase
         $feature = Features::factory()->inactive()->create(['name' => 'test-feature']);
         $this->assertFalse($feature->isActive());
 
-        $this->artisan('laraflags:activate-feature', ['feature' => 'test-feature'])
+        $this->artisan('laraflags:activate-feature', ['name' => 'test-feature'])
             ->expectsOutput('The feature [test-feature] was activated!')
             ->assertExitCode(0);
 
@@ -43,7 +43,7 @@ class ActivateFeatureTest extends TestCase
         $feature = Features::factory()->inactive()->create(['name' => 'test-feature']);
         $this->assertFalse($feature->isActive());
 
-        $this->artisan('laraflags:activate-feature', ['feature' => 'test-feature-does-not-exist'])
+        $this->artisan('laraflags:activate-feature', ['name' => 'test-feature-does-not-exist'])
             ->expectsQuestion('Please enter the name of the feature', 'test-feature')
             ->expectsOutput('The feature [test-feature] was activated!')
             ->assertExitCode(0);
@@ -57,7 +57,7 @@ class ActivateFeatureTest extends TestCase
         $feature = Features::factory()->create(['name' => 'test-feature']);
         $this->assertTrue($feature->isActive());
 
-        $this->artisan('laraflags:activate-feature', ['feature' => 'test-feature'])
+        $this->artisan('laraflags:activate-feature', ['name' => 'test-feature'])
             ->assertExitCode(0);
 
         $this->assertFalse($feature->wasChanged('active'));

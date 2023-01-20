@@ -31,30 +31,7 @@ class LaraflagsServiceProvider extends ServiceProvider
         $this->loadResources();
 
         // Register the package's custom Artisan commands
-        $this->commands([
-            \Faridibin\Laraflags\Console\InstallCommand::class,
-            \Faridibin\Laraflags\Console\PublishCommand::class,
-
-            // Feature commands
-            \Faridibin\Laraflags\Console\Feature\CreateFeature::class,
-            \Faridibin\Laraflags\Console\Feature\DeleteFeature::class,
-            \Faridibin\Laraflags\Console\Feature\AttachToGroup::class,
-            \Faridibin\Laraflags\Console\Feature\DetachFromGroup::class,
-            \Faridibin\Laraflags\Console\Feature\ActivateFeature::class,
-            \Faridibin\Laraflags\Console\Feature\DeactivateFeature::class,
-            // \Faridibin\Laraflags\Console\Feature\AttachFeatureToTenant::class,
-            // \Faridibin\Laraflags\Console\Feature\DetachFeatureFromTenant::class,
-
-            // Feature group commands
-            // \Faridibin\Laraflags\Console\FeatureGroup\CreateFeatureGroup::class,
-            // \Faridibin\Laraflags\Console\FeatureGroup\DeleteFeatureGroup::class,
-            // \Faridibin\Laraflags\Console\FeatureGroup\AttachFeature::class,
-            // \Faridibin\Laraflags\Console\FeatureGroup\DetachFeature::class,
-            // \Faridibin\Laraflags\Console\FeatureGroup\ActivateFeatureGroup::class,
-            // \Faridibin\Laraflags\Console\FeatureGroup\DeactivateFeatureGroup::class,
-            // \Faridibin\Laraflags\Console\FeatureGroup\AttachFeatureGroupToTenant::class,
-            // \Faridibin\Laraflags\Console\FeatureGroup\DetachFeatureGroupFromTenant::class,
-        ]);
+        $this->loadCommands();
     }
 
     /**
@@ -75,6 +52,47 @@ class LaraflagsServiceProvider extends ServiceProvider
 
         // Register views.
         $this->loadViewsFrom(__DIR__ . '/../resources/views', 'laraflags-views');
+    }
+
+    /**
+     * Register the package's custom Artisan commands.
+     *
+     * @return void
+     */
+    protected function loadCommands()
+    {
+        $commands = [
+            \Faridibin\Laraflags\Console\InstallCommand::class,
+            \Faridibin\Laraflags\Console\PublishCommand::class,
+
+            // Feature commands
+            \Faridibin\Laraflags\Console\Feature\CreateFeature::class,
+            \Faridibin\Laraflags\Console\Feature\DeleteFeature::class,
+            \Faridibin\Laraflags\Console\Feature\AttachToGroup::class,
+            \Faridibin\Laraflags\Console\Feature\DetachFromGroup::class,
+            \Faridibin\Laraflags\Console\Feature\ActivateFeature::class,
+            \Faridibin\Laraflags\Console\Feature\DeactivateFeature::class,
+
+            // Feature group commands
+            \Faridibin\Laraflags\Console\FeatureGroup\CreateFeatureGroup::class,
+            \Faridibin\Laraflags\Console\FeatureGroup\DeleteFeatureGroup::class,
+            \Faridibin\Laraflags\Console\FeatureGroup\AttachFeature::class,
+            \Faridibin\Laraflags\Console\FeatureGroup\DetachFeature::class,
+            \Faridibin\Laraflags\Console\FeatureGroup\ActivateFeatureGroup::class,
+            \Faridibin\Laraflags\Console\FeatureGroup\DeactivateFeatureGroup::class,
+        ];
+
+        if (config('laraflags.tenant.enabled')) {
+            $commands = array_merge($commands, [
+                // Tenant commands
+                // \Faridibin\Laraflags\Console\Feature\AttachFeatureToTenant::class,
+                // \Faridibin\Laraflags\Console\Feature\DetachFeatureFromTenant::class,
+                // \Faridibin\Laraflags\Console\FeatureGroup\AttachFeatureGroupToTenant::class,
+                // \Faridibin\Laraflags\Console\FeatureGroup\DetachFeatureGroupFromTenant::class,
+            ]);
+        }
+
+        $this->commands($commands);
     }
 
     /**

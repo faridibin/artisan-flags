@@ -101,7 +101,7 @@ class PublishCommand extends Command
      */
     private function publishConfig(): void
     {
-        if (LaraFlags::configExists()) {
+        if (Laraflags::configExists()) {
             $overwrite = $this->choice('Laraflags config file already exists. Do you want to overwrite it?', ['yes', 'no'], 'no');
 
             if ($overwrite === 'yes') {
@@ -127,7 +127,7 @@ class PublishCommand extends Command
      */
     private function publishViews(): void
     {
-        if (LaraFlags::viewsExist()) {
+        if (Laraflags::viewsExist()) {
             $overwrite = $this->choice('Laraflags views already exists. Do you want to overwrite them?', ['yes', 'no'], 'no');
 
             if ($overwrite === 'yes') {
@@ -153,7 +153,7 @@ class PublishCommand extends Command
      */
     private function publishMigrations(): void
     {
-        if (LaraFlags::migrationsExist()) {
+        if (Laraflags::migrationsExist()) {
             $overwrite = $this->choice('Laraflags migrations already exists. Do you want to overwrite them?', ['yes', 'no'], 'no');
 
             if ($overwrite === 'yes') {

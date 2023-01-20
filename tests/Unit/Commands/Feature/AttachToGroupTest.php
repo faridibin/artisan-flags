@@ -48,7 +48,7 @@ class AttachToGroupTest extends TestCase
         $group = FeatureGroups::factory()->create(['name' => 'test-feature-group']);
 
         $this->artisan('laraflags:attach-to-group', ['feature' => 'test-feature'])
-            ->expectsQuestion('Please enter the name of the feature group to attach', 'test-feature-group')
+            ->expectsQuestion('Please enter the name of the feature group to attach to', 'test-feature-group')
             ->expectsOutput('The feature [test-feature] was attached to feature group [test-feature-group]!')
             ->assertExitCode(0);
 
@@ -60,9 +60,11 @@ class AttachToGroupTest extends TestCase
     {
         $feature = Features::factory()->create(['name' => 'test-feature']);
 
-        $this->artisan('laraflags:attach-to-group', ['feature' => 'test-feature'])
+        $this->artisan('laraflags:attach-to-group', [
+            'feature' => 'test-feature',
+            '--group' => 'test-feature-group'
+        ])
             ->expectsOutput('A feature group [test-feature-group] does not exist.')
-            ->expectsQuestion('Please enter the name of the feature group to attach', 'test-feature-group')
             ->expectsQuestion('Do you want to create a feature group with this name [test-feature-group]?', 'yes')
             ->expectsQuestion('Please enter a description for the feature group', 'This is a description')
             ->expectsChoice('Do you want to activate this feature group?', 'yes', ['no', 'yes'])
