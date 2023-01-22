@@ -3,9 +3,12 @@
 namespace Faridibin\Laraflags\Tests;
 
 use Faridibin\Laraflags\LaraflagsServiceProvider;
+use Illuminate\Foundation\Testing\WithFaker;
 
 class TestCase extends \Orchestra\Testbench\TestCase
 {
+    use WithFaker;
+
     /**
      * Setup the test environment.
      */

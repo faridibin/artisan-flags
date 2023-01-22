@@ -41,9 +41,13 @@ trait HasFlagFeatures
      *
      * @return void
      */
-    public function extend(string $date)
+    public function extend(int $days): void
     {
-        $this->expires_at = $date;
+        if (!$this->expires_at) {
+            $this->expires_at = now();
+        }
+
+        $this->expires_at = $this->expires_at->addDays($days);
         $this->save();
     }
 

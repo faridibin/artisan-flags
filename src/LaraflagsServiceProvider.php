@@ -80,6 +80,10 @@ class LaraflagsServiceProvider extends ServiceProvider
             \Faridibin\Laraflags\Console\FeatureGroup\DetachFeature::class,
             \Faridibin\Laraflags\Console\FeatureGroup\ActivateFeatureGroup::class,
             \Faridibin\Laraflags\Console\FeatureGroup\DeactivateFeatureGroup::class,
+
+            // Utility commands
+            \Faridibin\Laraflags\Console\Utils\ExtendFeatureOrFeatureGroup::class,
+            \Faridibin\Laraflags\Console\Utils\ViewFeatureOrFeatureGroup::class,
         ];
 
         if (config('laraflags.tenant.enabled')) {

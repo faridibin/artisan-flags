@@ -22,6 +22,17 @@ class FeatureService
     }
 
     /**
+     * Gets all features.
+     *
+     * @param array<string> $columns
+     * @return \Illuminate\Database\Eloquent\Collection<\Faridibin\Laraflags\Models\Features>
+     */
+    public function getAll(array $columns = ['*'])
+    {
+        return $this->repository->getAll($columns);
+    }
+
+    /**
      * Gets a feature by id.
      *
      * @param int $id

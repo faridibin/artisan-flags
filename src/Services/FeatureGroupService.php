@@ -22,6 +22,17 @@ class FeatureGroupService
     }
 
     /**
+     * Gets all feature groups.
+     *
+     * @param array<string> $columns
+     * @return \Illuminate\Database\Eloquent\Collection<\Faridibin\Laraflags\Models\FeatureGroups>
+     */
+    public function getAll(array $columns = ['*'])
+    {
+        return $this->repository->getAll($columns);
+    }
+
+    /**
      * Gets a feature by id.
      *
      * @param int $id

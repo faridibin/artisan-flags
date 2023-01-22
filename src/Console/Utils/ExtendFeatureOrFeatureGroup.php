@@ -1,13 +1,15 @@
 <?php
 
-namespace App\Console\Commands\Feature;
+namespace Faridibin\Laraflags\Console\Utils;
 
-use App\Traits\Console\FeatureFlags;
+use Faridibin\Laraflags\Console\Traits\Runner;
+use Faridibin\Laraflags\Facades\Laraflags;
 use Illuminate\Console\Command;
+use Illuminate\Support\Str;
 
 class ExtendFeatureOrFeatureGroup extends Command
 {
-    // use FeatureFlags;
+    use Runner;
 
     /**
      * The name and signature of the console command.
@@ -30,18 +32,14 @@ class ExtendFeatureOrFeatureGroup extends Command
      */
     public function handle()
     {
-        if (!config('laraflags.expiration.enabled', false)) {
-            $this->error('Laraflags are not set to expire!');
+        $this->checkInstallation();
 
-            return Command::FAILURE;
-        }
-
-        $what = $this->argument('what');
+        $what = Str::replace('-', ' ', $this->argument('what'));
         $name = $this->option('name');
         $expiresAt = $this->option('extend');
 
         if (!$what) {
-            $what = $this->choice('Please enter the name of the feature or feature group', ['feature', 'feature group']);
+            $what = $this->choice('What would you like to extend?', ['feature', 'feature group']);
         }
 
         if (!$name) {
@@ -61,13 +59,12 @@ class ExtendFeatureOrFeatureGroup extends Command
             $expiresAt = $this->ask("When do you want this {$what} to expire? (Number of Days)", 0);
         }
 
-        $exists->extend(now()->addDays($expiresAt));
+        $exists->extend($expiresAt);
 
         $this->info("The {$what} [{$exists->name}] was extended! Expires at: {$exists->expires_at}");
 
         return Command::SUCCESS;
     }
-
     /**
      * Check if a feature or feature group exists.
      *
@@ -78,8 +75,8 @@ class ExtendFeatureOrFeatureGroup extends Command
     private function exists(string $what, string $name): mixed
     {
         return match ($what) {
-            'feature' => $this->doesFeatureExist($name),
-            'feature group' => $this->doesFeatureGroupExist($name),
+            'feature' => Laraflags::feature($name),
+            'feature group' => Laraflags::group($name),
         };
     }
 }

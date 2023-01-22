@@ -23,6 +23,17 @@ class FeatureGroupsRepository implements LaraflagsRepositoryInterface
     }
 
     /**
+     * Gets all feature groups.
+     *
+     * param array<string> $columns
+     * @return \Illuminate\Database\Eloquent\Collection<\Faridibin\Laraflags\Models\FeatureGroups>
+     */
+    public function getAll(array $columns): \Illuminate\Database\Eloquent\Collection
+    {
+        return $this->model->all($columns);
+    }
+
+    /**
      * Gets a feature group by id.
      *
      * @param int $id

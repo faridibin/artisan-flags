@@ -23,6 +23,17 @@ class FeaturesRepository implements LaraflagsRepositoryInterface
     }
 
     /**
+     * Gets all features.
+     *
+     * @param array<string> $columns
+     * @return \Illuminate\Database\Eloquent\Collection<\Faridibin\Laraflags\Models\Features>
+     */
+    public function getAll(array $columns): \Illuminate\Database\Eloquent\Collection
+    {
+        return $this->model->all($columns);
+    }
+
+    /**
      * Gets a feature by id.
      *
      * @param int $id
